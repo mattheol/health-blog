@@ -11,7 +11,8 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     margin: 0;
-    padding: 80px 65px 0;
+    padding-top: 80px ;
+    padding-bottom: 50px;
     font-family: 'Montserrat';
   }
   button {
@@ -20,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Montserrat';
   }
   p {
-    font-size: 16px;
+    font-size: 18px;
   }
   ul {
     padding: 0;

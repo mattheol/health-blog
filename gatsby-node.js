@@ -25,6 +25,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: blogPostTemplate,
       context: {
         id: post.id,
+        category: post.category,
       },
     })
   })

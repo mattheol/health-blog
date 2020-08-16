@@ -4,7 +4,7 @@ import Image from "gatsby-image"
 import { Link } from "gatsby"
 
 const PreviewWrapper = styled(Link)`
-  display: black;
+  display: block;
   position: relative;
   width: 100%;
   height: 340px;
@@ -33,7 +33,6 @@ const StyledImage = styled(Image)`
 `
 
 const Preview = ({ title, excerpt, image, slug }) => {
-  console.log(title)
   return (
     <PreviewWrapper to={`/articles/${slug}`}>
       <StyledImage fluid={image} />

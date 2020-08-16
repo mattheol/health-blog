@@ -24,6 +24,12 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-layout`,
     {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+        shortname: `health-blog-thesis`,
+      },
+    },
+    {
       resolve: `gatsby-plugin-prefetch-google-fonts`,
       options: {
         fonts: [

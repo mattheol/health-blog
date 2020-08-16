@@ -2,8 +2,8 @@ import React from "react"
 import styled from "styled-components"
 import { graphql } from "gatsby"
 import slugify from "slugify"
-import ArticlePreview from "../components/ArticlePreview"
-import PageInfo from "../components/PageInfo"
+import ArticlePreview from "../components/articlePreview/ArticlePreview"
+import PageInfo from "../components/pageInfo/PageInfo"
 
 const ArticlesWrapper = styled.div`
   display: grid;
@@ -11,20 +11,31 @@ const ArticlesWrapper = styled.div`
   grid-gap: 50px;
 `
 
-const pageData = {
-  title: "articles",
-  paragraph: `While artists work from real to the abstract, architects must work from the abstract to the real.`,
-}
-
-const ArticlesPage = ({ data }) => {
+const ArticlesPage = ({ data, location }) => {
   const {
     allDatoCmsArticle: { nodes },
   } = data
+  const category = location.search ? location.search.split("=")[1] : ""
+  const articles = category
+    ? nodes.filter(node => node.category === category)
+    : nodes
+  let pageTitle
+  switch (category) {
+    case "diet":
+      pageTitle = "Odżywianie"
+      break
+    case "gym":
+      pageTitle = "Trening siłowy"
+      break
+    default:
+      pageTitle = ""
+      break
+  }
   return (
     <>
-      <PageInfo title={pageData.title} paragraph={pageData.paragraph} />
+      <PageInfo title={pageTitle} paragraph="" />
       <ArticlesWrapper>
-        {nodes.map(({ title, featuredImage }) => (
+        {articles.map(({ title, featuredImage }) => (
           <ArticlePreview
             key={title}
             title={title}
@@ -41,6 +52,7 @@ export const query = graphql`
   {
     allDatoCmsArticle {
       nodes {
+        category
         title
         featuredImage {
           fluid(maxWidth: 500) {

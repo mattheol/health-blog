@@ -5,9 +5,6 @@ import { Link } from "gatsby"
 const NavigationWrapper = styled.nav`
   display: flex;
   align-items: center;
-  position: absolute;
-  top: 20px;
-  left: 30px;
   justify-content: flex-start;
   font-family: "Montserrat";
   a {
@@ -33,13 +30,15 @@ const NavigationListItem = styled.li`
 `
 const Navigation = () => (
   <NavigationWrapper>
-    <Logo>Logośćżół</Logo>
+    <Logo>
+      <Link to={`/articles`}>Logo</Link>
+    </Logo>
     <NavigationList>
       <NavigationListItem>
-        <Link to="/articles">Artykuły</Link>
+        <Link to={`/articles?category=diet`}>Odżywianie</Link>
       </NavigationListItem>
       <NavigationListItem>
-        <Link to="/contact">Kontakt</Link>
+        <Link to={`/articles?category=gym`}>Trening siłowy</Link>
       </NavigationListItem>
       <NavigationListItem>
         <Link to="/about">O mnie</Link>
