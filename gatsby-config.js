@@ -23,6 +23,7 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-layout`,
+    `gatsby-plugin-scroll-reveal`,
     {
       resolve: `gatsby-plugin-disqus`,
       options: {

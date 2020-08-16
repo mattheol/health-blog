@@ -15,32 +15,18 @@ const ArticlesPage = ({ data, location }) => {
   const {
     allDatoCmsArticle: { nodes },
   } = data
-  const category = location.search ? location.search.split("=")[1] : ""
-  const articles = category
-    ? nodes.filter(node => node.category === category)
-    : nodes
-  let pageTitle
-  switch (category) {
-    case "diet":
-      pageTitle = "Odżywianie"
-      break
-    case "gym":
-      pageTitle = "Trening siłowy"
-      break
-    default:
-      pageTitle = ""
-      break
-  }
+  const { pageTitle } = location.state
   return (
     <>
       <PageInfo title={pageTitle} paragraph="" />
       <ArticlesWrapper>
-        {articles.map(({ title, featuredImage }) => (
+        {nodes.map(({ title, featuredImage, category }) => (
           <ArticlePreview
             key={title}
             title={title}
             image={featuredImage.fluid}
-            slug={slugify(title, { lower: true })}
+            slugCategory={slugify(category, { lower: true })}
+            slugTitle={slugify(title, { lower: true })}
           />
         ))}
       </ArticlesWrapper>
