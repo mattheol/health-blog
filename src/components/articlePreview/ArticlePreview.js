@@ -32,9 +32,9 @@ const StyledImage = styled(Image)`
   object-fit: cover;
 `
 
-const Preview = ({ title, excerpt, image, slug }) => {
+const Preview = ({ title, excerpt, image, slugCategory, slugTitle }) => {
   return (
-    <PreviewWrapper to={`/articles/${slug}`}>
+    <PreviewWrapper to={`/articles/${slugCategory}/${slugTitle}`}>
       <StyledImage fluid={image} />
       <PreviewInfoLabel>
         <h2>{title}</h2>

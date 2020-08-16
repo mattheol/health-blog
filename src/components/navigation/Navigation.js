@@ -35,10 +35,14 @@ const Navigation = () => (
     </Logo>
     <NavigationList>
       <NavigationListItem>
-        <Link to={`/articles?category=diet`}>Odżywianie</Link>
+        <Link to={`/articles/diet`} state={{ pageTitle: "Odżywianie" }}>
+          Odżywianie
+        </Link>
       </NavigationListItem>
       <NavigationListItem>
-        <Link to={`/articles?category=gym`}>Trening siłowy</Link>
+        <Link to={`/articles/gym`} state={{ pageTitle: "Trening" }}>
+          Trening
+        </Link>
       </NavigationListItem>
       <NavigationListItem>
         <Link to="/about">O mnie</Link>
