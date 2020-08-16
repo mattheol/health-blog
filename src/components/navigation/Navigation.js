@@ -33,7 +33,7 @@ const NavigationListItem = styled.li`
 `
 const Navigation = () => (
   <NavigationWrapper>
-    <Logo>Logo</Logo>
+    <Logo>Logośćżół</Logo>
     <NavigationList>
       <NavigationListItem>
         <Link to="/articles">Artykuły</Link>

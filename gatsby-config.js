@@ -13,6 +13,12 @@ module.exports = {
         path: `${__dirname}/src/assets/images`,
       },
     },
+    {
+      resolve: `gatsby-source-datocms`,
+      options: {
+        apiToken: `ebbeb27bbe17702705a82c1353964a`,
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-styled-components`,
@@ -23,6 +29,7 @@ module.exports = {
         fonts: [
           {
             family: `Montserrat`,
+            subsets: [`latin`, `latin-ext`],
             variants: ["400", "600", "700"],
           },
         ],
