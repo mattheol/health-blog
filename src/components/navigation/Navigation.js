@@ -11,6 +11,8 @@ const NavigationWrapper = styled.nav`
     text-decoration: none;
     color: inherit;
   }
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 `
 const Logo = styled.span`
   font-weight: 700;

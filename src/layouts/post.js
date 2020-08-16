@@ -39,21 +39,29 @@ export const query = graphql`
 `
 
 const PostWrapper = styled.div`
-  margin-top: 50px;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
 `
-const LeftContent = styled.div`
-  max-width: 800px;
+const DisqusWrapper = styled(Disqus)`
+  margin-top: 20px;
+`
+
+const PageWrapper = styled.div`
+  margin-top: 50px;
+  max-width: 1500px;
+`
+
+const MainContent = styled.div`
+  display: inline-block;
+  width: 70%;
+`
+const SideContent = styled.div`
+  display: inline-block;
+  vertical-align: top;
+  width: 30%;
 `
 
 const PostContent = styled.div`
   padding: 0 30px 20px 30px;
-`
-
-const PageWrapper = styled.div``
-
-const DisqusWrapper = styled(Disqus)`
-  margin-top: 20px;
 `
 
 const PostLayout = ({ data, pageContext: { id } }) => {
@@ -63,7 +71,7 @@ const PostLayout = ({ data, pageContext: { id } }) => {
   }
   return (
     <PageWrapper>
-      <LeftContent>
+      <MainContent>
         <PostWrapper>
           <Image fluid={data.datoCmsArticle.featuredImage.fluid} />
           <PostContent>
@@ -85,7 +93,8 @@ const PostLayout = ({ data, pageContext: { id } }) => {
           </PostContent>
         </PostWrapper>
         <DisqusWrapper config={disqusConfig} />
-      </LeftContent>
+      </MainContent>
+      <SideContent></SideContent>
     </PageWrapper>
   )
 }
