@@ -18,7 +18,7 @@ exports.createPages = async ({ graphql, actions }) => {
       lower: true,
     })
     createPage({
-      path: `articles/${slugifiedTitle}`,
+      path: `${slugifiedTitle}`,
       component: categoriesTemplate,
       context: {
         category: cat,
@@ -48,7 +48,7 @@ exports.createPages = async ({ graphql, actions }) => {
     })
 
     createPage({
-      path: `articles/${slugifiedCategory}/${slugifiedTitle}`,
+      path: `${slugifiedCategory}/${slugifiedTitle}`,
       component: blogPostTemplate,
       context: {
         id: post.id,

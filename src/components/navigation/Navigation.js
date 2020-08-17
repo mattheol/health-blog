@@ -12,7 +12,7 @@ const NavigationWrapper = styled.nav`
     color: inherit;
   }
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `
 const Logo = styled.span`
   font-weight: 700;
@@ -33,16 +33,16 @@ const NavigationListItem = styled.li`
 const Navigation = () => (
   <NavigationWrapper>
     <Logo>
-      <Link to={`/articles`}>Logo</Link>
+      <Link to={`/`}>Logo</Link>
     </Logo>
     <NavigationList>
       <NavigationListItem>
-        <Link to={`/articles/diet`} state={{ pageTitle: "Odżywianie" }}>
+        <Link to={"/diet"} state={{ pageTitle: "Odżywianie" }}>
           Odżywianie
         </Link>
       </NavigationListItem>
       <NavigationListItem>
-        <Link to={`/articles/gym`} state={{ pageTitle: "Trening" }}>
+        <Link to={`/gym`} state={{ pageTitle: "Trening" }}>
           Trening
         </Link>
       </NavigationListItem>

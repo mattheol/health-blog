@@ -12,7 +12,7 @@ export const query = graphql`
         category
         title
         featuredImage {
-          fluid(maxWidth: 500) {
+          fluid(maxWidth: 900) {
             ...GatsbyDatoCmsFluid_tracedSVG
           }
         }
@@ -22,7 +22,7 @@ export const query = graphql`
 `
 const ArticlesWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-gap: 50px;
 `
 

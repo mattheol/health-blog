@@ -23,10 +23,7 @@ const GlobalStyle = createGlobalStyle`
   p {
     font-size: 18px;
   }
-  ul {
-    padding: 0;
-    margin: 0;
-  }
+  
 `
 
 export default GlobalStyle

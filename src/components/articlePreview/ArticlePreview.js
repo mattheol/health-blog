@@ -7,7 +7,7 @@ const PreviewWrapper = styled(Link)`
   display: block;
   position: relative;
   width: 100%;
-  height: 340px;
+  height: ${({ small }) => (small ? "200px" : "340px")};
   background-color: hsl(0, 0%, 95%);
 `
 
@@ -32,12 +32,12 @@ const StyledImage = styled(Image)`
   object-fit: cover;
 `
 
-const Preview = ({ title, excerpt, image, slugCategory, slugTitle }) => {
+const Preview = ({ title, excerpt, image, slugCategory, slugTitle, small }) => {
   return (
-    <PreviewWrapper to={`/articles/${slugCategory}/${slugTitle}`}>
+    <PreviewWrapper small={small} to={`/${slugCategory}/${slugTitle}`}>
       <StyledImage fluid={image} />
       <PreviewInfoLabel>
-        <h2>{title}</h2>
+        {small ? <h3>{title}</h3> : <h2>{title}</h2>}
       </PreviewInfoLabel>
     </PreviewWrapper>
   )
