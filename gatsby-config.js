@@ -22,8 +22,14 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-styled-components`,
-    `gatsby-plugin-layout`,
+    {
+      resolve: `gatsby-plugin-layout`,
+      options: {
+        component: require.resolve(`${__dirname}/src/layouts/mainLayout`),
+      },
+    },
     `gatsby-plugin-scroll-reveal`,
+    "gatsby-awesome-pagination",
     {
       resolve: `gatsby-plugin-disqus`,
       options: {

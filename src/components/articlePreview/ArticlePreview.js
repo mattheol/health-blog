@@ -31,7 +31,12 @@ const PreviewWrapper = styled(Link)`
   height: ${({ small }) => (small ? "200px" : "340px")};
   background-color: hsl(0, 0%, 95%);
   :hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
+  }
+  @media (max-width: 1200px) {
+    display: block;
+    height: 400px;
+    margin-bottom: 30px;
   }
 `
 

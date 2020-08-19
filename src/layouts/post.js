@@ -94,7 +94,7 @@ const SideContent = styled.div`
 `
 
 const PostContent = styled.div`
-  padding: 0 30px 20px 30px;
+  padding: 0 40px 30px 40px;
 `
 
 const PostLayout = ({ data, pageContext: { id, category } }) => {
@@ -141,12 +141,12 @@ const PostLayout = ({ data, pageContext: { id, category } }) => {
         <RecomendationsWrapper>
           {recomendations.nodes.map(({ title, featuredImage }) => (
             <ArticlePreview
-              small
+              small={true}
               key={title}
               title={title}
               image={featuredImage.fluid}
               slugCategory={slugify(category, { lower: true })}
-              slugTitle={slugify(title, { lower: true })}
+              slugTitle={slugify(title, { lower: true }).replace(":", "")}
             />
           ))}
         </RecomendationsWrapper>
