@@ -3,14 +3,6 @@ import styled from "styled-components"
 import Image from "gatsby-image"
 import { Link } from "gatsby"
 
-const PreviewWrapper = styled(Link)`
-  display: block;
-  position: relative;
-  width: 100%;
-  height: ${({ small }) => (small ? "200px" : "340px")};
-  background-color: hsl(0, 0%, 95%);
-`
-
 const PreviewInfoLabel = styled.div`
   position: absolute;
   left: 0;
@@ -30,6 +22,17 @@ const StyledImage = styled(Image)`
   width: 100%;
   height: 100%;
   object-fit: cover;
+`
+
+const PreviewWrapper = styled(Link)`
+  display: block;
+  position: relative;
+  width: 100%;
+  height: ${({ small }) => (small ? "200px" : "340px")};
+  background-color: hsl(0, 0%, 95%);
+  :hover {
+    transform: scale(1.1);
+  }
 `
 
 const Preview = ({ title, excerpt, image, slugCategory, slugTitle, small }) => {

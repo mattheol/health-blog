@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   max-width: 1500px;
   margin: auto;
   position: relative;
-  padding: 0 30px;
+  padding: 0 50px;
 `
 
 const MainLayout = ({ children }) => (
