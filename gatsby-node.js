@@ -43,7 +43,7 @@ exports.createPages = async ({ graphql, actions }) => {
       items: result.data.allDatoCmsArticle.nodes.filter(
         ({ category }) => category === cat
       ),
-      itemsPerPage: 2,
+      itemsPerPage: 6,
       pathPrefix: `/${slugifiedTitle}`,
       component: categoriesTemplate,
       context: {
@@ -55,8 +55,8 @@ exports.createPages = async ({ graphql, actions }) => {
   paginate({
     createPage,
     items: result.data.allDatoCmsArticle.nodes,
-    itemsPerPage: 2,
-    itemsPerFirstPage: 3,
+    itemsPerPage: 6,
+    itemsPerFirstPage: 5,
     pathPrefix: `/`,
     component: indexPostsTemplate,
   })

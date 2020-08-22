@@ -86,6 +86,54 @@ const ContentPreviewEntry = styled.div`
     display: none;
   }
 `
+const PageNavigationWrapper = styled.div`
+  margin-top: 30px;
+  position: relative;
+  margin-bottom: 50px;
+`
+
+const StyledLink = styled(Link)`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  background-color: rgba(26, 5, 0, 0.9);
+  :hover {
+    background-color: rgba(26, 5, 0, 1);
+  }
+  height: 50px;
+  width: 150px;
+`
+
+const NextPageLink = styled(StyledLink)`
+  background-color: rgba(5, 20, 5, 0.9);
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  :hover {
+    background-color: rgba(5, 20, 5, 1);
+  }
+`
+
+const ArrowLeft = styled.div`
+  display: inline-block;
+  margin-right: 10px;
+  border-right: 4px solid white;
+  border-bottom: 4px solid white;
+  width: 10px;
+  height: 10px;
+  transform: rotate(-225deg);
+`
+const ArrowRigth = styled.div`
+  display: inline-block;
+  margin-left: 10px;
+  border-right: 4px solid white;
+  border-bottom: 4px solid white;
+  width: 10px;
+  height: 10px;
+  transform: rotate(-45deg);
+`
 
 const IndexPage = ({ data, pageContext }) => {
   const {
@@ -97,41 +145,68 @@ const IndexPage = ({ data, pageContext }) => {
     category: fCategory,
     entry,
   } = nodes[0]
+  const { pageNumber } = pageContext
   const slugCategory = slugify(fCategory, { lower: true })
   const slugTitle = slugify(fTitle, { lower: true }).replace(":", "")
   return (
     <>
-      <PreviewWrapper to={`/${slugCategory}/${slugTitle}`}>
-        <StyledImage fluid={fFeaturedImage.fluid} />
-        <ContentPreviewWrapper>
-          <ContentPreviewHeader>
-            <h1>{fTitle}</h1>
-          </ContentPreviewHeader>
-          <ContentPreviewEntry>{entry}</ContentPreviewEntry>
-          <ContentPreviewReadmore>(...) Czytaj dalej</ContentPreviewReadmore>
-        </ContentPreviewWrapper>
-      </PreviewWrapper>
-      <ArticlesWrapper>
-        {nodes.map(({ title, featuredImage, category }, index) => {
-          if (index !== 0) {
-            return (
-              <ArticlePreview
-                key={title}
-                title={title}
-                image={featuredImage.fluid}
-                slugCategory={slugify(category, { lower: true })}
-                slugTitle={slugify(title, { lower: true }).replace(":", "")}
-              />
-            )
-          } else return null
-        })}
-      </ArticlesWrapper>
-      {pageContext.previousPagePath ? (
-        <Link to={pageContext.previousPagePath}>Poprzednia</Link>
-      ) : null}
-      {pageContext.nextPagePath ? (
-        <Link to={pageContext.nextPagePath}>Kolejna</Link>
-      ) : null}
+      {pageNumber === 0 ? (
+        <>
+          <PreviewWrapper to={`/${slugCategory}/${slugTitle}`}>
+            <StyledImage fluid={fFeaturedImage.fluid} />
+            <ContentPreviewWrapper>
+              <ContentPreviewHeader>
+                <h1>{fTitle}</h1>
+              </ContentPreviewHeader>
+              <ContentPreviewEntry>{entry}</ContentPreviewEntry>
+              <ContentPreviewReadmore>
+                (...) Czytaj dalej
+              </ContentPreviewReadmore>
+            </ContentPreviewWrapper>
+          </PreviewWrapper>
+          <ArticlesWrapper>
+            {nodes.map(({ title, featuredImage, category }, index) => {
+              if (index !== 0) {
+                return (
+                  <ArticlePreview
+                    key={title}
+                    title={title}
+                    image={featuredImage.fluid}
+                    slugCategory={slugify(category, { lower: true })}
+                    slugTitle={slugify(title, { lower: true }).replace(":", "")}
+                  />
+                )
+              } else return null
+            })}
+          </ArticlesWrapper>
+        </>
+      ) : (
+        <ArticlesWrapper>
+          {nodes.map(({ title, featuredImage, category }, index) => (
+            <ArticlePreview
+              key={title}
+              title={title}
+              image={featuredImage.fluid}
+              slugCategory={slugify(category, { lower: true })}
+              slugTitle={slugify(title, { lower: true }).replace(":", "")}
+            />
+          ))}
+        </ArticlesWrapper>
+      )}
+      <PageNavigationWrapper>
+        {pageContext.previousPagePath ? (
+          <StyledLink to={pageContext.previousPagePath}>
+            <ArrowLeft />
+            Poprzednia
+          </StyledLink>
+        ) : null}
+        {pageContext.nextPagePath ? (
+          <NextPageLink to={pageContext.nextPagePath}>
+            Kolejna
+            <ArrowRigth />
+          </NextPageLink>
+        ) : null}
+      </PageNavigationWrapper>
     </>
   )
 }
