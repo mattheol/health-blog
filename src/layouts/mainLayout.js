@@ -8,6 +8,9 @@ const Wrapper = styled.div`
   margin: auto;
   position: relative;
   padding: 0 50px;
+  @media (max-width: 767px) {
+    padding: 0;
+  }
 `
 
 const MainLayout = ({ children }) => (

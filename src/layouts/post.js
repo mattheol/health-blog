@@ -5,13 +5,16 @@ import { Disqus } from "gatsby-plugin-disqus"
 import styled from "styled-components"
 import ArticlePreview from "../components/articlePreview/ArticlePreview"
 import slugify from "slugify"
-
+import DatePreview from "../components/datePreview/DatePreview"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons"
 export const query = graphql`
   query querySingleArticle($id: String!, $category: String!) {
     post: datoCmsArticle(id: { eq: $id }) {
       id
       title
       category
+      date
       featuredImage {
         fluid(maxWidth: 1250) {
           ...GatsbyDatoCmsFluid_tracedSVG
@@ -39,6 +42,7 @@ export const query = graphql`
     }
     recomendations: allDatoCmsArticle(
       filter: { category: { eq: $category }, id: { ne: $id } }
+      sort: { fields: date, order: DESC }
       limit: 3
     ) {
       nodes {
@@ -55,7 +59,7 @@ export const query = graphql`
 `
 
 const PostWrapper = styled.div`
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
 `
 const DisqusWrapper = styled(Disqus)`
   margin-top: 20px;
@@ -103,6 +107,11 @@ const PostLayout = ({ data, pageContext: { id, category } }) => {
     identifier: id,
     title: post.title,
   }
+  const formatter = new Intl.DateTimeFormat("pl", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  })
   return (
     <PageWrapper>
       <MainContent>
@@ -129,19 +138,30 @@ const PostLayout = ({ data, pageContext: { id, category } }) => {
                   return null
               }
             })}
+            <div
+              style={{
+                color: "grey",
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faCalendarAlt}
+                style={{ marginRight: "5px" }}
+              />
+              {formatter.format(new Date(post.date))}
+            </div>
           </PostContent>
         </PostWrapper>
         <DisqusWrapper config={disqusConfig} />
       </MainContent>
       <SideContent>
-        <h4>
+        <h4 style={{ marginTop: "0px" }}>
           Polecane artykuły z kategorii{" "}
-          {category === "diet" ? "Odżywianie" : "Trening"}
+          {category === "diet" ? "odżywianie" : "trening"}
         </h4>
         <RecomendationsWrapper>
           {recomendations.nodes.map(({ title, featuredImage }) => (
             <ArticlePreview
-              small={true}
+              small={1}
               key={title}
               title={title}
               image={featuredImage.fluid}

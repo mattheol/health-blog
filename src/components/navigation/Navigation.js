@@ -12,6 +12,9 @@ const NavigationWrapper = styled.nav`
     color: inherit;
   }
   padding-bottom: 20px;
+  @media (max-width: 767px) {
+    padding-left: 10px;
+  }
 `
 const Logo = styled.span`
   font-weight: 700;

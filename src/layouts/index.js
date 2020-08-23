@@ -5,32 +5,34 @@ import slugify from "slugify"
 import ArticlePreview from "../components/articlePreview/ArticlePreview"
 import Image from "gatsby-image"
 import { Link } from "gatsby"
+import DatePreview from "../components/datePreview/DatePreview"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons"
 
 const ArticlesWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
   grid-gap: 30px;
-  @media (max-width: 1200px) {
-    display: block;
-    height: 500px;
-    margin-bottom: 30px;
-  }
 `
 const StyledImage = styled(Image)`
-  width: 70%;
+  width: 100%;
   height: 100%;
   object-fit: cover;
+`
+const ImgContainer = styled.div`
+  position: relative;
+  width: 65%;
   @media (max-width: 1250px) {
     width: 100%;
   }
 `
-
 const ContentPreviewWrapper = styled.div`
   background-color: black;
-  width: 30%;
+  width: 35%;
   color: white;
   padding: 5px 15px;
   position: relative;
+  overflow: hidden;
   @media (max-width: 1250px) {
     width: 100%;
     position: absolute;
@@ -43,7 +45,9 @@ const ContentPreviewWrapper = styled.div`
 
 const ContentPreviewReadmore = styled.div`
   color: rgba(255, 255, 255, 0.82);
-  margin-top: 30px;
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
   text-align: right;
   font-size: 20px;
   @media (max-width: 1250px) {
@@ -55,7 +59,7 @@ const PreviewWrapper = styled(Link)`
   display: flex;
   position: relative;
   width: 100%;
-  height: 450px;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
   text-decoration: none;
   background-color: hsl(0, 0%, 95%);
   margin-bottom: 30px;
@@ -65,10 +69,6 @@ const PreviewWrapper = styled(Link)`
   }
   &:hover ${ContentPreviewReadmore} {
     color: white;
-  }
-  @media (max-width: 1250px) {
-    flex-direction: column;
-    height: 500px;
   }
 `
 const ContentPreviewHeader = styled.div`
@@ -82,6 +82,15 @@ const ContentPreviewEntry = styled.div`
   font-size: 20px;
   max-height: calc(1.2 * 20px * 8);
   overflow: hidden;
+  @media (max-width: 1450px) {
+    max-height: calc(1.2 * 20px * 7);
+  }
+  @media (max-width: 1350px) {
+    max-height: calc(1.2 * 20px * 6);
+  }
+  @media (max-width: 1290px) {
+    max-height: calc(1.2 * 20px * 5);
+  }
   @media (max-width: 1250px) {
     display: none;
   }
@@ -89,7 +98,7 @@ const ContentPreviewEntry = styled.div`
 const PageNavigationWrapper = styled.div`
   margin-top: 30px;
   position: relative;
-  margin-bottom: 50px;
+  height: 50px;
 `
 
 const StyledLink = styled(Link)`
@@ -143,9 +152,18 @@ const IndexPage = ({ data, pageContext }) => {
     title: fTitle,
     featuredImage: fFeaturedImage,
     category: fCategory,
+    date: fDate,
     entry,
   } = nodes[0]
+  let formatter
   const { pageNumber } = pageContext
+  if (pageNumber === 0) {
+    formatter = new Intl.DateTimeFormat("pl", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    })
+  }
   const slugCategory = slugify(fCategory, { lower: true })
   const slugTitle = slugify(fTitle, { lower: true }).replace(":", "")
   return (
@@ -153,7 +171,17 @@ const IndexPage = ({ data, pageContext }) => {
       {pageNumber === 0 ? (
         <>
           <PreviewWrapper to={`/${slugCategory}/${slugTitle}`}>
-            <StyledImage fluid={fFeaturedImage.fluid} />
+            <ImgContainer>
+              <StyledImage fluid={fFeaturedImage.fluid} />
+
+              <DatePreview>
+                <FontAwesomeIcon
+                  icon={faCalendarAlt}
+                  style={{ marginRight: "5px" }}
+                />
+                {formatter.format(new Date(fDate))}
+              </DatePreview>
+            </ImgContainer>
             <ContentPreviewWrapper>
               <ContentPreviewHeader>
                 <h1>{fTitle}</h1>
@@ -165,7 +193,7 @@ const IndexPage = ({ data, pageContext }) => {
             </ContentPreviewWrapper>
           </PreviewWrapper>
           <ArticlesWrapper>
-            {nodes.map(({ title, featuredImage, category }, index) => {
+            {nodes.map(({ title, featuredImage, category, date }, index) => {
               if (index !== 0) {
                 return (
                   <ArticlePreview
@@ -174,6 +202,7 @@ const IndexPage = ({ data, pageContext }) => {
                     image={featuredImage.fluid}
                     slugCategory={slugify(category, { lower: true })}
                     slugTitle={slugify(title, { lower: true }).replace(":", "")}
+                    date={date}
                   />
                 )
               } else return null
@@ -182,13 +211,14 @@ const IndexPage = ({ data, pageContext }) => {
         </>
       ) : (
         <ArticlesWrapper>
-          {nodes.map(({ title, featuredImage, category }, index) => (
+          {nodes.map(({ title, featuredImage, category, date }) => (
             <ArticlePreview
               key={title}
               title={title}
               image={featuredImage.fluid}
               slugCategory={slugify(category, { lower: true })}
               slugTitle={slugify(title, { lower: true }).replace(":", "")}
+              date={date}
             />
           ))}
         </ArticlesWrapper>
@@ -212,11 +242,16 @@ const IndexPage = ({ data, pageContext }) => {
 }
 export const pageQuery = graphql`
   query($skip: Int!, $limit: Int!) {
-    allDatoCmsArticle(skip: $skip, limit: $limit) {
+    allDatoCmsArticle(
+      sort: { fields: date, order: DESC }
+      skip: $skip
+      limit: $limit
+    ) {
       nodes {
         category
         title
         entry
+        date
         featuredImage {
           fluid(maxWidth: 900) {
             ...GatsbyDatoCmsFluid_tracedSVG

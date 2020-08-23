@@ -11,12 +11,14 @@ export const pageQuery = graphql`
   query($skip: Int!, $limit: Int!, $category: String!) {
     articles: allDatoCmsArticle(
       filter: { category: { eq: $category } }
+      sort: { fields: date, order: DESC }
       skip: $skip
       limit: $limit
     ) {
       nodes {
         category
         title
+        date
         featuredImage {
           fluid(maxWidth: 900) {
             ...GatsbyDatoCmsFluid_tracedSVG
@@ -42,7 +44,7 @@ const ArticlesWrapper = styled.div`
 const PageNavigationWrapper = styled.div`
   margin-top: 30px;
   position: relative;
-  margin-bottom: 50px;
+  height: 50px;
 `
 const StyledLink = styled(Link)`
   display: inline-flex;
@@ -99,13 +101,14 @@ const CategoryLayout = ({ data, pageContext }) => {
       <PageInfo title={pageTitle} paragraph="" />
       <Image fixed={logoImage.childImageSharp.fixed} />
       <ArticlesWrapper>
-        {nodes.map(({ title, category, featuredImage }) => (
+        {nodes.map(({ title, category, featuredImage, date }) => (
           <ArticlePreview
             key={title}
             title={title}
             image={featuredImage.fluid}
             slugCategory={slugify(category, { lower: true })}
             slugTitle={slugify(title, { lower: true }).replace(":", "")}
+            date={date}
           />
         ))}
       </ArticlesWrapper>

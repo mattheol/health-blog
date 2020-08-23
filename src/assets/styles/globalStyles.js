@@ -14,6 +14,10 @@ const GlobalStyle = createGlobalStyle`
     padding-top: 80px ;
     padding-bottom: 50px;
     font-family: 'Montserrat';
+    @media (max-width: 767px){
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
   }
   button {
     padding: 0;

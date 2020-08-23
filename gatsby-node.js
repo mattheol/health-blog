@@ -17,7 +17,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const result = await graphql(`
     query queryCMSPage {
-      allDatoCmsArticle {
+      allDatoCmsArticle(sort: { fields: date, order: DESC }) {
         nodes {
           id
           title
