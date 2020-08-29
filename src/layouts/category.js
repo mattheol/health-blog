@@ -26,13 +26,9 @@ export const pageQuery = graphql`
         }
       }
     }
-    logoImage: file(name: { eq: "warzywa" }) {
-      publicURL
-      childImageSharp {
-        fixed(width: 200) {
-          ...GatsbyImageSharpFixed_tracedSVG
-        }
-      }
+    categoryModel: datoCmsCategory(name: { eq: $category }) {
+      name
+      description
     }
   }
 `
@@ -40,12 +36,15 @@ const ArticlesWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
   grid-gap: 50px;
+  margin-top: 20px;
+  margin-bottom: 30px;
 `
 const PageNavigationWrapper = styled.div`
   margin-top: 30px;
   position: relative;
   height: 50px;
 `
+
 const StyledLink = styled(Link)`
   display: inline-flex;
   justify-content: center;
@@ -88,18 +87,16 @@ const ArrowRigth = styled.div`
   height: 10px;
   transform: rotate(-45deg);
 `
+const Logo = styled(Image)`
+  display: inline-block;
+`
 const CategoryLayout = ({ data, pageContext }) => {
-  console.log(data)
   const {
     articles: { nodes },
-    logoImage,
   } = data
   // const { pageTitle } = location.state
-  const pageTitle = "test"
   return (
     <>
-      <PageInfo title={pageTitle} paragraph="" />
-      <Image fixed={logoImage.childImageSharp.fixed} />
       <ArticlesWrapper>
         {nodes.map(({ title, category, featuredImage, date }) => (
           <ArticlePreview

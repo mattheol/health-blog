@@ -9,8 +9,11 @@ exports.createPages = async ({ graphql, actions }) => {
   const indexPostsTemplate = path.resolve(`src/layouts/index.js`)
   const categoriesResult = await graphql(`
     query queryCategories {
-      allDatoCmsArticle {
-        distinct(field: category)
+      allDatoCmsCategory {
+        nodes {
+          name
+          description
+        }
       }
     }
   `)
@@ -27,30 +30,32 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  categoriesResult.data.allDatoCmsArticle.distinct.forEach(cat => {
-    const slugifiedTitle = slugify(cat, {
-      lower: true,
-    })
-    createPage({
-      path: `${slugifiedTitle}`,
-      component: categoriesTemplate,
-      context: {
-        category: cat,
-      },
-    })
-    paginate({
-      createPage,
-      items: result.data.allDatoCmsArticle.nodes.filter(
-        ({ category }) => category === cat
-      ),
-      itemsPerPage: 6,
-      pathPrefix: `/${slugifiedTitle}`,
-      component: categoriesTemplate,
-      context: {
-        category: cat,
-      },
-    })
-  })
+  categoriesResult.data.allDatoCmsCategory.nodes.forEach(
+    ({ name, description }) => {
+      const slugifiedTitle = slugify(name, {
+        lower: true,
+      })
+      createPage({
+        path: `${slugifiedTitle}`,
+        component: categoriesTemplate,
+        context: {
+          category: name,
+        },
+      })
+      paginate({
+        createPage,
+        items: result.data.allDatoCmsArticle.nodes.filter(
+          ({ category }) => category === name
+        ),
+        itemsPerPage: 6,
+        pathPrefix: `/${slugifiedTitle}`,
+        component: categoriesTemplate,
+        context: {
+          category: name,
+        },
+      })
+    }
+  )
 
   paginate({
     createPage,

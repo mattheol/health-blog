@@ -5,16 +5,19 @@ import Search from "../search/Search"
 
 const NavigationWrapper = styled.nav`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
   font-family: "Montserrat";
+  padding-bottom: 20px;
   a {
     text-decoration: none;
     color: inherit;
   }
-  padding-bottom: 20px;
   @media (max-width: 767px) {
     padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 15px;
   }
 `
 const Logo = styled.span`
@@ -34,29 +37,45 @@ const NavigationListItem = styled.li`
   font-size: 15px;
   margin-left: 32px;
 `
+const partlyActive = className => ({ isPartiallyCurrent }) => ({
+  className: className + (isPartiallyCurrent ? ` active` : ``),
+})
+
+const PartlyActiveLink = ({ className, ...rest }) => (
+  <Link getProps={partlyActive(className)} {...rest} />
+)
+
+const NavigationLink = styled(PartlyActiveLink)`
+  display: flex;
+  align-items: center;
+  &.active {
+    font-weight: 700;
+  }
+`
+const SearchWrapper = styled.div`
+  margin-left: auto;
+`
+
 const Navigation = () => (
   <NavigationWrapper>
     <Logo>
-      <Link to={`/`}>Logo</Link>
+      <Link to={`/`}>Zdrowy_blog</Link>
     </Logo>
     <NavigationList>
       <NavigationListItem>
-        <Link to={"/diet"} state={{ pageTitle: "Odżywianie" }}>
-          Odżywianie
-        </Link>
+        <NavigationLink to={"/diet"}>
+          <div>Odżywianie</div>
+        </NavigationLink>
       </NavigationListItem>
       <NavigationListItem>
-        <Link to={`/gym`} state={{ pageTitle: "Trening" }}>
-          Trening
-        </Link>
-      </NavigationListItem>
-      <NavigationListItem>
-        <Link to="/about">O mnie</Link>
+        <NavigationLink to={`/gym`}>
+          <div>Trening</div>
+        </NavigationLink>
       </NavigationListItem>
     </NavigationList>
-    <div style={{ marginLeft: "auto" }}>
+    <SearchWrapper>
       <Search />
-    </div>
+    </SearchWrapper>
   </NavigationWrapper>
 )
 

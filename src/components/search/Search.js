@@ -8,6 +8,7 @@ const SearchInput = styled.input`
   outline: none;
   padding-left: 15px;
   width: 100%;
+  height: 100%;
   font-size: 15px;
   font-weight: 600;
   background: none;
@@ -47,6 +48,7 @@ const SearchWrapper = styled.div`
   align-items: center;
   overflow: hidden;
   width: 210px;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.4);
 `
 
 const Search = () => {
