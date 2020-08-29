@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
+import Search from "../search/Search"
 
 const NavigationWrapper = styled.nav`
   display: flex;
@@ -26,6 +27,7 @@ const NavigationList = styled.ul`
   padding: 0;
   list-style: none;
   display: flex;
+  align-items: center;
 `
 const NavigationListItem = styled.li`
   font-weight: 600;
@@ -52,6 +54,9 @@ const Navigation = () => (
         <Link to="/about">O mnie</Link>
       </NavigationListItem>
     </NavigationList>
+    <div style={{ marginLeft: "auto" }}>
+      <Search />
+    </div>
   </NavigationWrapper>
 )
 

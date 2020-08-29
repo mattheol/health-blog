@@ -55,7 +55,7 @@ const ContentPreviewReadmore = styled.div`
   }
 `
 
-const PreviewWrapper = styled(Link)`
+const MainArticle = styled(Link)`
   display: flex;
   position: relative;
   width: 100%;
@@ -69,6 +69,12 @@ const PreviewWrapper = styled(Link)`
   }
   &:hover ${ContentPreviewReadmore} {
     color: white;
+  }
+  @media (max-width: 767px) {
+    padding: 0;
+    :hover {
+      transform: none;
+    }
   }
 `
 const ContentPreviewHeader = styled.div`
@@ -170,10 +176,9 @@ const IndexPage = ({ data, pageContext }) => {
     <>
       {pageNumber === 0 ? (
         <>
-          <PreviewWrapper to={`/${slugCategory}/${slugTitle}`}>
+          <MainArticle to={`/${slugCategory}/${slugTitle}`}>
             <ImgContainer>
               <StyledImage fluid={fFeaturedImage.fluid} />
-
               <DatePreview>
                 <FontAwesomeIcon
                   icon={faCalendarAlt}
@@ -191,7 +196,7 @@ const IndexPage = ({ data, pageContext }) => {
                 (...) Czytaj dalej
               </ContentPreviewReadmore>
             </ContentPreviewWrapper>
-          </PreviewWrapper>
+          </MainArticle>
           <ArticlesWrapper>
             {nodes.map(({ title, featuredImage, category, date }, index) => {
               if (index !== 0) {
@@ -240,6 +245,7 @@ const IndexPage = ({ data, pageContext }) => {
     </>
   )
 }
+
 export const pageQuery = graphql`
   query($skip: Int!, $limit: Int!) {
     allDatoCmsArticle(
