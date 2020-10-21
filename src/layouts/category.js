@@ -3,9 +3,7 @@ import styled from "styled-components"
 import { graphql } from "gatsby"
 import slugify from "slugify"
 import ArticlePreview from "../components/articlePreview/ArticlePreview"
-import PageInfo from "../components/pageInfo/PageInfo"
 import { Link } from "gatsby"
-import Image from "gatsby-image"
 
 export const pageQuery = graphql`
   query($skip: Int!, $limit: Int!, $category: String!) {
@@ -87,9 +85,7 @@ const ArrowRigth = styled.div`
   height: 10px;
   transform: rotate(-45deg);
 `
-const Logo = styled(Image)`
-  display: inline-block;
-`
+
 const CategoryLayout = ({ data, pageContext }) => {
   const {
     articles: { nodes },

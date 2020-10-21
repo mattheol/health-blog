@@ -5,9 +5,10 @@ import { Disqus } from "gatsby-plugin-disqus"
 import styled from "styled-components"
 import ArticlePreview from "../components/articlePreview/ArticlePreview"
 import slugify from "slugify"
-import DatePreview from "../components/datePreview/DatePreview"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons"
+import LazyLoad from 'react-lazy-load';
+
 export const query = graphql`
   query querySingleArticle($id: String!, $category: String!) {
     post: datoCmsArticle(id: { eq: $id }) {
@@ -151,7 +152,9 @@ const PostLayout = ({ data, pageContext: { id, category } }) => {
             </div>
           </PostContent>
         </PostWrapper>
-        <DisqusWrapper config={disqusConfig} />
+        <LazyLoad offsetTop={0}>
+          <DisqusWrapper config={disqusConfig} />
+        </LazyLoad>
       </MainContent>
       <SideContent>
         <h4 style={{ marginTop: "0px" }}>
