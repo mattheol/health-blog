@@ -85,7 +85,7 @@ const Navigation = () => (
         <NavigationLink to={`/calculator`}>
           <div><FontAwesomeIcon
                 icon={faCalculator}
-                style={{ marginRight: "5px", color:"lightskyblue" }}
+                style={{ marginRight: "5px", color:"#3f51b5" }}
               />Kalkulator kalorii</div>
         </NavigationLink>
       </NavigationListItem>
