@@ -152,7 +152,7 @@ const PostLayout = ({ data, pageContext: { id, category } }) => {
             </div>
           </PostContent>
         </PostWrapper>
-        <LazyLoad offsetTop={0}>
+        <LazyLoad offsetTop={200}>
           <DisqusWrapper config={disqusConfig} />
         </LazyLoad>
       </MainContent>
