@@ -28,7 +28,6 @@ module.exports = {
         component: require.resolve(`${__dirname}/src/layouts/mainLayout`),
       },
     },
-    `gatsby-plugin-scroll-reveal`,
     "gatsby-awesome-pagination",
     {
       resolve: `gatsby-plugin-disqus`,
