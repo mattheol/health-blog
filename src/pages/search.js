@@ -36,7 +36,7 @@ const SearchPage = ({ data, location }) => {
   } = data
   const { input } = queryString.parse(location.search)
   const filteredArticles = nodes.filter(({ title, category }) =>
-    title.toLowerCase().includes(input.toLowerCase())
+    title.toLowerCase().includes(input?.toLowerCase())
   )
   let articlesSearch
   switch (filteredArticles.length) {
