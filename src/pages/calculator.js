@@ -90,14 +90,14 @@ const Calculator = () =>{
           <div>
               Powinieneś przyjmować
           </div>
-          <div style={{fontSize: '24px'}}>    <b style={{color: '#3f51b5'}}>{bmr*palFactor}</b>
+          <div style={{fontSize: '24px'}}>    <b style={{color: '#3f51b5'}}>{Math.round(bmr*palFactor)}</b>
           </div>
           <div><b>kcal/dzień</b></div>
           <div style={{marginTop: '20px'}}>
               Twoje BMR wynosi
           </div>
           <div style={{fontSize: '24px'}}>
-              <b style={{color: '#3f51b5'}}>{bmr}</b>
+              <b style={{color: '#3f51b5'}}>{Math.round(bmr)}</b>
           </div>
           <div><b>kcal/dzień</b></div>
         </div>
