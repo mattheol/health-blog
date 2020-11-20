@@ -26,7 +26,6 @@ export const pageQuery = graphql`
     }
     categoryModel: datoCmsCategory(name: { eq: $category }) {
       name
-      description
     }
   }
 `
