@@ -12,7 +12,6 @@ exports.createPages = async ({ graphql, actions }) => {
       allDatoCmsCategory {
         nodes {
           name
-          description
         }
       }
     }
@@ -31,7 +30,7 @@ exports.createPages = async ({ graphql, actions }) => {
   `)
 
   categoriesResult.data.allDatoCmsCategory.nodes.forEach(
-    ({ name, description }) => {
+    ({ name}) => {
       const slugifiedTitle = slugify(name, {
         lower: true,
       })
