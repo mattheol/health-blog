@@ -21,7 +21,6 @@ export const query = graphql`
           ...GatsbyDatoCmsFluid_tracedSVG
         }
       }
-      author
       articleContent {
         ... on DatoCmsParagraph {
           paragraphContent
