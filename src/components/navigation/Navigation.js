@@ -1,4 +1,4 @@
-import { Link } from "gatsby"
+import { Link, StaticQuery } from "gatsby"
 import React from "react"
 import styled from "styled-components"
 import Search from "../search/Search"
@@ -63,35 +63,48 @@ const SearchWrapper = styled.div`
   align-items: center;
 `
 
-const Navigation = () => (
-  <NavigationWrapper>
-    <NavigationList>
-    <Logo>
-      <Link to={`/`}>Zdrowy_blog</Link>
-    </Logo>
-      <NavigationListItem>
-        <NavigationLink to={"/diet"}>
-          <div>Odżywianie</div>
-        </NavigationLink>
-      </NavigationListItem>
-      <NavigationListItem >
-        <NavigationLink to={`/gym`}>
-          <div>Trening</div>
-        </NavigationLink>
-      </NavigationListItem>
-    </NavigationList>
-    <SearchWrapper>
-      <NavigationListItem style={{display: 'block', marginRight: '32px'}}>
-        <NavigationLink to={`/calculator`}>
-          <div><FontAwesomeIcon
-                icon={faCalculator}
-                style={{ marginRight: "5px", color:"#3f51b5" }}
-              />Kalkulator kalorii</div>
-        </NavigationLink>
-      </NavigationListItem>
-      <Search style={{display: 'block'}}/>
-    </SearchWrapper>
-  </NavigationWrapper>
-)
+const Navigation = () => {
+  return (
+    <StaticQuery
+      query={graphql`
+        query HeadingQuery {
+          allDatoCmsCategory {
+            nodes {
+              name
+            }
+          }
+        }
+      `}
+      render={data => (
+        <NavigationWrapper>
+          <NavigationList>
+          <Logo>
+            <Link to={`/`}>Zdrowy_blog</Link>
+          </Logo>
+          {
+            data.allDatoCmsCategory.nodes.map( ({name}) => <NavigationListItem key={name}>
+              <NavigationLink to={`/${name}`}>
+                <div>{name}</div>
+              </NavigationLink>
+            </NavigationListItem>)
+          }
+          </NavigationList>
+          <SearchWrapper>
+            <NavigationListItem style={{display: 'block', marginRight: '32px'}}>
+              <NavigationLink to={`/calculator`}>
+                <div><FontAwesomeIcon
+                      icon={faCalculator}
+                      style={{ marginRight: "5px", color:"#3f51b5" }}
+                    />Kalkulator kalorii</div>
+              </NavigationLink>
+            </NavigationListItem>
+            <Search style={{display: 'block'}}/>
+          </SearchWrapper>
+        </NavigationWrapper>
+      )}
+    />
+    
+  )
+}
 
 export default Navigation
