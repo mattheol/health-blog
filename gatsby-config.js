@@ -43,6 +43,7 @@ module.exports = {
             `latin latin-ext\:400,600,700`
           
         ],
+        display: 'swap'
       },
     },
     {
