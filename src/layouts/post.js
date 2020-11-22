@@ -161,7 +161,9 @@ const PostLayout = ({ data, pageContext: { id, category } }) => {
           <DisqusWrapper config={disqusConfig} />
         </LazyLoad>
       </MainContent>
-      <SideContent>
+      {
+        recomendations.nodes.length ?
+        <SideContent>
         <h4 style={{ marginTop: "0px" }}>
           Polecane artykuły z kategorii {post.category.label}
         </h4>
@@ -177,7 +179,9 @@ const PostLayout = ({ data, pageContext: { id, category } }) => {
             />
           ))}
         </RecomendationsWrapper>
-      </SideContent>
+      </SideContent> : null
+      }
+      
     </PageWrapper>
   )
 }

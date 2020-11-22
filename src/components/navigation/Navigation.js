@@ -68,7 +68,9 @@ const Navigation = () => {
     <StaticQuery
       query={graphql`
         query HeadingQuery {
-          allDatoCmsCategory {
+          allDatoCmsCategory(
+            sort: { fields: id, order: ASC }
+            ){
             nodes {
               name
               label
