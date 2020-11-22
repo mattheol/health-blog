@@ -36,15 +36,18 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-google-fonts`,
+      resolve: `gatsby-plugin-webfonts`,
       options: {
-        fonts: [
-            `Montserrat`,
-            `latin latin-ext\:400,600,700`
-          
-        ],
-        display: 'swap'
-      },
+        fonts: {
+          google: [
+            {
+              family: "Montserrat",
+              subsets: ['latin','latin-ext'],
+              variants: ["400", "600", "700"],
+            },
+          ]
+        }
+      }
     },
     {
       resolve: "gatsby-plugin-react-svg",
