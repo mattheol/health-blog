@@ -8,13 +8,16 @@ import { Link } from "gatsby"
 export const pageQuery = graphql`
   query($skip: Int!, $limit: Int!, $category: String!) {
     articles: allDatoCmsArticle(
-      filter: { category: { eq: $category } }
+      filter: { category: {name : { eq: $category } } }
       sort: { fields: date, order: DESC }
       skip: $skip
       limit: $limit
     ) {
       nodes {
-        category
+        category {
+          id
+          name
+        }
         title
         date
         featuredImage {
@@ -93,12 +96,12 @@ const CategoryLayout = ({ data, pageContext }) => {
   return (
     <>
       <ArticlesWrapper>
-        {nodes.map(({ title, category, featuredImage, date }) => (
+        {nodes.map(({ title, category: {name}, featuredImage, date }) => (
           <ArticlePreview
             key={title}
             title={title}
             image={featuredImage.fluid}
-            slugCategory={slugify(category, { lower: true })}
+            slugCategory={slugify(name, { lower: true })}
             slugTitle={slugify(title, { lower: true }).replace(":", "")}
             date={date}
           />

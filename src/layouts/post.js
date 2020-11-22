@@ -14,7 +14,10 @@ export const query = graphql`
     post: datoCmsArticle(id: { eq: $id }) {
       id
       title
-      category
+      category{
+        name
+        label
+      }
       date
       featuredImage {
         fluid(maxWidth: 1250) {
@@ -41,13 +44,16 @@ export const query = graphql`
       }
     }
     recomendations: allDatoCmsArticle(
-      filter: { category: { eq: $category }, id: { ne: $id } }
+      filter: { category: {id: {eq: $category} }, id: { ne: $id } }
       sort: { fields: date, order: DESC }
       limit: 3
     ) {
       nodes {
         title
-        category
+        category{
+          id
+          name
+        }
         featuredImage {
           fluid(maxWidth: 500) {
             ...GatsbyDatoCmsFluid_tracedSVG
@@ -157,17 +163,16 @@ const PostLayout = ({ data, pageContext: { id, category } }) => {
       </MainContent>
       <SideContent>
         <h4 style={{ marginTop: "0px" }}>
-          Polecane artykuły z kategorii{" "}
-          {category === "diet" ? "odżywianie" : "trening"}
+          Polecane artykuły z kategorii {post.category.label}
         </h4>
         <RecomendationsWrapper>
-          {recomendations.nodes.map(({ title, featuredImage }) => (
+          {recomendations.nodes.map(({ title, featuredImage, category: cat }) => (
             <ArticlePreview
               small={1}
               key={title}
               title={title}
               image={featuredImage.fluid}
-              slugCategory={slugify(category, { lower: true })}
+              slugCategory={slugify(cat.name, { lower: true })}
               slugTitle={slugify(title, { lower: true }).replace(":", "")}
             />
           ))}

@@ -11,7 +11,9 @@ exports.createPages = async ({ graphql, actions }) => {
     query queryCategories {
       allDatoCmsCategory {
         nodes {
+          id
           name
+          label
         }
       }
     }
@@ -23,7 +25,10 @@ exports.createPages = async ({ graphql, actions }) => {
         nodes {
           id
           title
-          category
+          category{
+            id
+            name
+          }
         }
       }
     }
@@ -44,7 +49,7 @@ exports.createPages = async ({ graphql, actions }) => {
       paginate({
         createPage,
         items: result.data.allDatoCmsArticle.nodes.filter(
-          ({ category }) => category === name
+          ({ category }) => category && category.name === name
         ),
         itemsPerPage: 6,
         pathPrefix: `/${slugifiedTitle}`,
@@ -66,23 +71,25 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   result.data.allDatoCmsArticle.nodes.forEach(post => {
-    let slugifiedTitle = slugify(post.title, {
-      lower: true,
-    })
-
-    const slugifiedCategory = slugify(post.category, {
-      lower: true,
-    })
-    slugifiedTitle.replace(":", "")
-    slugifiedTitle = slugifiedTitle.replace(":", "")
-
-    createPage({
-      path: `${slugifiedCategory}/${slugifiedTitle}`,
-      component: blogPostTemplate,
-      context: {
-        id: post.id,
-        category: post.category,
-      },
-    })
+    if(post.category){
+      let slugifiedTitle = slugify(post.title, {
+        lower: true,
+      })
+  
+      const slugifiedCategory = slugify(post.category.name, {
+        lower: true,
+      })
+      slugifiedTitle.replace(":", "")
+      slugifiedTitle = slugifiedTitle.replace(":", "")
+  
+      createPage({
+        path: `${slugifiedCategory}/${slugifiedTitle}`,
+        component: blogPostTemplate,
+        context: {
+          id: post.id,
+          category: post.category.id,
+        },
+      })
+    }
   })
 }

@@ -9,7 +9,9 @@ export const searchQuery = graphql`
   {
     allDatoCmsArticle(sort: { fields: date, order: DESC }) {
       nodes {
-        category
+        category{
+          name
+        }
         title
         date
         featuredImage {
@@ -57,12 +59,12 @@ const SearchPage = ({ data, location }) => {
     <>
       <SearchInfo>{searchTitle}</SearchInfo>
       <ArticlesWrapper>
-        {filteredArticles.map(({ title, category, featuredImage, date }) => (
+        {filteredArticles.map(({ title, category: {name}, featuredImage, date }) => (
           <ArticlePreview
             key={title}
             title={title}
             image={featuredImage.fluid}
-            slugCategory={slugify(category, { lower: true })}
+            slugCategory={slugify(name, { lower: true })}
             slugTitle={slugify(title, { lower: true }).replace(":", "")}
             date={date}
           />

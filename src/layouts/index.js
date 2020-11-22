@@ -157,7 +157,9 @@ const IndexPage = ({ data, pageContext }) => {
   const {
     title: fTitle,
     featuredImage: fFeaturedImage,
-    category: fCategory,
+    category: {
+      name: fCategory
+    },
     date: fDate,
     entry,
   } = nodes[0]
@@ -205,7 +207,7 @@ const IndexPage = ({ data, pageContext }) => {
                     key={title}
                     title={title}
                     image={featuredImage.fluid}
-                    slugCategory={slugify(category, { lower: true })}
+                    slugCategory={slugify(category.name, { lower: true })}
                     slugTitle={slugify(title, { lower: true }).replace(":", "")}
                     date={date}
                   />
@@ -221,7 +223,7 @@ const IndexPage = ({ data, pageContext }) => {
               key={title}
               title={title}
               image={featuredImage.fluid}
-              slugCategory={slugify(category, { lower: true })}
+              slugCategory={slugify(category.name, { lower: true })}
               slugTitle={slugify(title, { lower: true }).replace(":", "")}
               date={date}
             />
@@ -254,7 +256,9 @@ export const pageQuery = graphql`
       limit: $limit
     ) {
       nodes {
-        category
+        category{
+          name
+        }
         title
         entry
         date

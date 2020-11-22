@@ -1,4 +1,4 @@
-import { Link, StaticQuery } from "gatsby"
+import { Link, StaticQuery, graphql } from "gatsby"
 import React from "react"
 import styled from "styled-components"
 import Search from "../search/Search"
@@ -71,6 +71,7 @@ const Navigation = () => {
           allDatoCmsCategory {
             nodes {
               name
+              label
             }
           }
         }
@@ -82,9 +83,9 @@ const Navigation = () => {
             <Link to={`/`}>Zdrowy_blog</Link>
           </Logo>
           {
-            data.allDatoCmsCategory.nodes.map( ({name}) => <NavigationListItem key={name}>
+            data.allDatoCmsCategory.nodes.map( ({name, label}) => <NavigationListItem key={name}>
               <NavigationLink to={`/${name}`}>
-                <div>{name}</div>
+                <div>{label}</div>
               </NavigationLink>
             </NavigationListItem>)
           }
