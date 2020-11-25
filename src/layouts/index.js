@@ -264,7 +264,7 @@ export const pageQuery = graphql`
         date
         featuredImage {
           fluid(maxWidth: 900) {
-            ...GatsbyDatoCmsFluid
+            ...GatsbyDatoCmsFluid_tracedSVG
           }
         }
       }

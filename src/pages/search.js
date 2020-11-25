@@ -16,7 +16,7 @@ export const searchQuery = graphql`
         date
         featuredImage {
           fluid(maxWidth: 900) {
-            ...GatsbyDatoCmsFluid
+            ...GatsbyDatoCmsFluid_tracedSVG
           }
         }
       }
