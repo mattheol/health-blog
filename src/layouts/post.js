@@ -126,21 +126,20 @@ const PostLayout = ({ data, pageContext: { id, category }, location }) => {
           <Image fluid={post.featuredImage.fluid} />
           <PostContent>
             <h1>{post.title}</h1>
-            {post.articleContent.map(item => {
+            {post.articleContent.map((item, index)  => {
               const itemKey = Object.keys(item)[1]
-
               switch (itemKey) {
                 case "paragraphContent":
                   return (
                     <p
                       dangerouslySetInnerHTML={{ __html: item[itemKey] }}
-                      key={item.id}
+                      key={index}
                     ></p>
                   )
                 case "headingContent":
-                  return <h2 key={item.id}>{item[itemKey]}</h2>
+                  return <h2 key={index}>{item[itemKey]}</h2>
                 case "imageData":
-                  return <Image key={item.id} fluid={item[itemKey].fluid} />
+                  return <Image key={index} fluid={item[itemKey].fluid} />
                 default:
                   return null
               }
