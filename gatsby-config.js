@@ -32,7 +32,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-disqus`,
       options: {
-        shortname: `jamstack-health`,
+        shortname: `zdrowy-blog`,
       },
     },
     {
