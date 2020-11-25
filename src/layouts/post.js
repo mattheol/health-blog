@@ -131,10 +131,9 @@ const PostLayout = ({ data, pageContext: { id, category }, location }) => {
               switch (itemKey) {
                 case "paragraphContent":
                   return (
-                    <p
-                      dangerouslySetInnerHTML={{ __html: item[itemKey] }}
-                      key={index}
-                    ></p>
+                    <div
+                      dangerouslySetInnerHTML={{ __html: `<div> ${item[itemKey]} </div>` }}
+                    ></div>
                   )
                 case "headingContent":
                   return <h2 key={index}>{item[itemKey]}</h2>
