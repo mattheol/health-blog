@@ -107,11 +107,12 @@ const PostContent = styled.div`
   padding: 0 40px 30px 40px;
 `
 
-const PostLayout = ({ data, pageContext: { id, category } }) => {
+const PostLayout = ({ data, pageContext: { id, category }, location }) => {
   const { post, recomendations } = data
   let disqusConfig = {
+    url: `https://jamstack-health.netlify.app/${location.pathname}`,
     identifier: id,
-    title: post.title,
+    title: category,
   }
   const formatter = new Intl.DateTimeFormat("pl", {
     day: "numeric",
