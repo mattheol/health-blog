@@ -86,7 +86,7 @@ const Navigation = () => {
           </Logo>
           {
             data.allDatoCmsCategory.nodes.map( ({name, label}) => <NavigationListItem key={name}>
-              <NavigationLink to={`/${name}`}>
+              <NavigationLink to={`/${name.toLowerCase()}`}>
                 <div>{label}</div>
               </NavigationLink>
             </NavigationListItem>)
