@@ -112,7 +112,7 @@ const PostLayout = ({ data, pageContext: { id, category }, location }) => {
   let disqusConfig = {
     url: `https://jamstack-health.netlify.app/${location.pathname}`,
     identifier: id,
-    title: category,
+    title: post.title,
   }
   const formatter = new Intl.DateTimeFormat("pl", {
     day: "numeric",
